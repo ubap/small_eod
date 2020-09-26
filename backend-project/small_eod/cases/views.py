@@ -1,16 +1,28 @@
 from rest_framework import viewsets
+from django_filters.filterset import FilterSet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 
 from .models import Case
 from .serializers import CaseCountSerializer
 from ..users.serializers import UserSerializer
+from ..search.filter import SearchFilter
+
+
+
+class CaseFilterSet(FilterSet):
+    query = SearchFilter()
+
+    class Meta:
+        model = Case
+        fields = ['tags', 'query']
 
 
 class CaseViewSet(viewsets.ModelViewSet):
     queryset = Case.objects.with_counter().with_nested_resources().all()
     serializer_class = CaseCountSerializer
     filter_backends = (DjangoFilterBackend, OrderingFilter)
+    filterset_class = CaseFilterSet
     ordering_fields = [
         "id",
         "comment",
