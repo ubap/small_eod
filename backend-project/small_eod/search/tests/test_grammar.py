@@ -57,5 +57,5 @@ class SearchExprTestCase(AssertParserMixin, TestCase):
         self.assert_parser(
             search_expr,
             '"a:b"',
-            SearchTerm('a:b'),
+            SearchTerm("a:b"),
         )

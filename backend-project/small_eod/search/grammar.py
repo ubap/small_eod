@@ -8,7 +8,6 @@ from pyparsing import (
     opAssoc,
     FollowedBy,
     quotedString,
-    OneOrMore,
 )
 
 
@@ -110,6 +109,7 @@ search_expr = infixNotation(
         (OR, 2, opAssoc.LEFT, OperationOr),
     ],
 )
+
 
 def parse(value):
     return search_expr.parseString(value, parseAll=True).asList()[0]

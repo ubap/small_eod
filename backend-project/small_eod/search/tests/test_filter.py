@@ -8,8 +8,8 @@ from ..grammar import parse
 
 class SearchFilterTestCase(SimpleTestCase):
     def test_filtering_lookup_expr(self):
-        qs = mock.Mock(spec=['filter'])
-        f = SearchFilter(field_name='somefield', filterset=DemoFilterSet())
-        result = f.filter(qs, parse('term1'))
-        qs.filter.assert_called_once_with(Q(name__icontains='term1'))
+        qs = mock.Mock(spec=["filter"])
+        f = SearchFilter(field_name="somefield", filterset=DemoFilterSet())
+        result = f.filter(qs, parse("term1"))
+        qs.filter.assert_called_once_with(Q(name__icontains="term1"))
         self.assertNotEqual(qs, result)

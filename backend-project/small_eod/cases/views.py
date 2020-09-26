@@ -5,8 +5,7 @@ from rest_framework.filters import OrderingFilter
 from .models import Case
 from .serializers import CaseCountSerializer
 from ..users.serializers import UserSerializer
-from ..search.filter import SearchFilter
-from .filterset  import CaseFilterSet
+from .filterset import CaseFilterSet
 
 
 class CaseViewSet(viewsets.ModelViewSet):

@@ -1,6 +1,5 @@
 from django.db.models import Q
 from .grammar import (
-    search_expr,
     OperationAnd,
     OperationOr,
     OperationNot,
@@ -36,9 +35,13 @@ class BaseSearchSet(object):
         if isinstance(result, SearchTerm):
             return self.get_term_condition(result.term)
         elif isinstance(result, OperationAnd):
-            return self.get_condition(result.operands[0]) & self.get_condition(result.operands[1])
+            return self.get_condition(result.operands[0]) & self.get_condition(
+                result.operands[1]
+            )
         elif isinstance(result, OperationOr):
-            return self.get_condition(result.operands[0]) | self.get_condition(result.operands[1])
+            return self.get_condition(result.operands[0]) | self.get_condition(
+                result.operands[1]
+            )
         elif isinstance(result, OperationNot):
             return ~self.get_condition(result.operands)
         elif isinstance(result, FieldExpr):
