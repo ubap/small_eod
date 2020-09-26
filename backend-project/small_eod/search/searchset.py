@@ -8,7 +8,7 @@ from .grammar import (
 )
 
 
-class BaseSearchSet(object):
+class BaseSearchSet:
     search_fields = None
     filters = {}
 

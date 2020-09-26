@@ -17,13 +17,13 @@ nums = pyparsing_unicode.nums
 alphanums = pyparsing_unicode.alphanums
 
 
-class FieldExpr(object):
+class FieldExpr:
     def __init__(self, tokens):
         self.field = tokens[0]
         self.value = tokens[1]
 
     def __repr__(self):
-        return "({0}={1})".format(self.field, self.value)
+        return f"({self.field}={self.value})"
 
     def __eq__(self, other):
         return (
@@ -33,14 +33,14 @@ class FieldExpr(object):
         )
 
 
-class UnaryOperation(object):
+class UnaryOperation:
     "takes one operand,e.g. not"
 
     def __init__(self, tokens):
         self.op, self.operands = tokens[0]
 
 
-class BinaryOperation(object):
+class BinaryOperation:
     def __init__(self, tokens):
         self.op = tokens[0][1]
         self.operands = tokens[0][0::2]
@@ -56,17 +56,17 @@ class BinaryOperation(object):
 
 class OperationAnd(BinaryOperation):
     def __repr__(self):
-        return "(AND {0})".format(" ".join(str(oper) for oper in self.operands))
+        return "(AND {})".format(" ".join(str(oper) for oper in self.operands))
 
 
 class OperationOr(BinaryOperation):
     def __repr__(self):
-        return "(OR {0})".format(" ".join(str(oper) for oper in self.operands))
+        return "(OR {})".format(" ".join(str(oper) for oper in self.operands))
 
 
 class OperationNot(UnaryOperation):
     def __repr__(self):
-        return "(NOT {0})".format(self.operands)
+        return f"(NOT {self.operands})"
 
 
 class ImplicitOperator(OperationAnd):
@@ -75,14 +75,14 @@ class ImplicitOperator(OperationAnd):
         self.operands = tokens
 
 
-class SearchTerm(object):
+class SearchTerm:
     def __init__(self, tokens):
         if not isinstance(tokens, str):
             tokens = tokens[0]
         self.term = tokens
 
     def __repr__(self):
-        return "SearchTerm({})".format(self.term)
+        return f"SearchTerm({self.term})"
 
     def __eq__(self, other):
         return self.__class__ == other.__class__ and self.term == other.term
