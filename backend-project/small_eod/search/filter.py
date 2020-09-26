@@ -6,7 +6,7 @@ class SearchFilter(CharFilter):
 
     def __init__(self, *args, **kwargs):
         self.searchset = kwargs.pop('searchset')
-        super().__init__(**kwargs)
+        super().__init__(*args, **kwargs)
 
     def filter(self, qs, value):
         if not value:

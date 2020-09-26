@@ -55,6 +55,17 @@ class CaseViewSetTestCase(
         item = response.json()
         self.assertCountEqual(item["tags"], tags)
 
+    def test_filter_by_pk(self):
+        self.login_required()
+        second_case = CaseFactory()
+        response = self.client.get(
+            self.get_url(name="list", **self.get_extra_kwargs()),
+            data={'query': f'id:{second_case.pk}'}
+        )
+        self.assertEqual(response.status_code, 200, response.json())
+        item = response.json()['results']
+        self.assertEqual(len(item), 1)
+        self.assertEqual(item[0]['id'], second_case.pk)
 
 class UserViewSetMixin(RelatedM2MMixin, ReadOnlyViewSetMixin):
     factory_class = UserFactory

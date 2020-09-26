@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from django_filters.filterset import FilterSet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 
@@ -7,15 +6,7 @@ from .models import Case
 from .serializers import CaseCountSerializer
 from ..users.serializers import UserSerializer
 from ..search.filter import SearchFilter
-
-
-
-class CaseFilterSet(FilterSet):
-    query = SearchFilter()
-
-    class Meta:
-        model = Case
-        fields = ['tags', 'query']
+from .filterset  import CaseFilterSet
 
 
 class CaseViewSet(viewsets.ModelViewSet):
