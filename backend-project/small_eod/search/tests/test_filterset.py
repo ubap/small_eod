@@ -1,12 +1,12 @@
 from unittest import TestCase
 from django.db.models import Q
 from ..grammar import parse
-from .fixtures import DemoFilterSet
+from .fixtures import DemoSearchSet
 
 
 class BaseFilterSetTestCase(TestCase):
     def setUp(self):
-        self.instance = DemoFilterSet()
+        self.instance = DemoSearchSet()
 
     def assertCondition(self, querystring, expected):
         self.assertEqual(self.instance.get_condition(parse(querystring)), expected)
