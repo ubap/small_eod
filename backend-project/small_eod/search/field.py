@@ -1,5 +1,7 @@
 from django import forms
 from .grammar import parse
+from pyparsing import ParseException
+from django.core.exceptions import ValidationError
 
 
 class SearchField(forms.CharField):
@@ -7,4 +9,7 @@ class SearchField(forms.CharField):
         value = super().clean(*args, **kwargs)
         if not value:
             return ""
-        return parse(value)
+        try:
+            return parse(value)
+        except ParseException as e:
+            raise ValidationError(str(e))
